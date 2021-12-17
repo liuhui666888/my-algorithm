@@ -7,7 +7,7 @@ package com.algorithm.linked;
  **/
 public class DoublePointer {
 
-    static class ListNode {
+    public static class ListNode {
           int val;
           ListNode next;
           ListNode() {}
