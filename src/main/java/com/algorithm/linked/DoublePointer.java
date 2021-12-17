@@ -157,5 +157,27 @@ public class DoublePointer {
         }
     }
 
+    /**
+     * Description:翻转链表
+     **/
+    class Solution206 {
+        public ListNode reverseList(ListNode head) {
+            //申请两个指针
+            ListNode pre = null;
+            ListNode cur = head;
+            while(cur != null){
+                //创建中间节点指向 cur.next ，防止链表断开
+                ListNode dummy = cur.next;
+                //将cur指向前一个
+                cur.next = pre;
+                //将前置指针向后移一步
+                pre = cur;
+                //将后置指针向后移一步
+                cur = dummy;
+            }
+            return pre;
+        }
+    }
+
 
 }
