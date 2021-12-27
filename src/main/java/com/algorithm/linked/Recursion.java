@@ -27,7 +27,7 @@ public class Recursion {
             //所以要把原来的指向断开
             //防止循环指向
             head.next = null;
-            //返回
+            //
             return pre;
         }
     }
