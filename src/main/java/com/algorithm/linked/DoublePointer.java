@@ -179,5 +179,41 @@ public class DoublePointer {
         }
     }
 
+    /**
+     * Description:是否回文字符串（两边对称）
+     **/
+    class Solution{
+        public boolean isPalindrome(String s) {
+            //为空返回true
+            if (s == null){
+                return true;
+            }
+            //创建双指针，一个从队头，一个从队尾
+            int left = 0, right = s.length() - 1;
+            //循环直到两个指针相交
+            while (left < right) {
+                //考虑空格等因素，直接前移一位（用循环是怕多个空格）
+                while (left < right && !Character.isLetterOrDigit(s.charAt(left)))
+                {
+                    left++;
+                }
+                //考虑空格等因素，直接前移一位（用循环是怕多个空格）
+                while (left < right && !Character.isLetterOrDigit(s.charAt(right)))
+                {
+                    right--;
+                }
+                //字符串转为小写，并判断是否相等
+                //不相等则不是回文字符串
+                if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))
+                {
+                    return false;
+                }
+                //指针前移
+                left++;
+                right--;
+            }
+            return true;
+        }
+    }
 
 }
