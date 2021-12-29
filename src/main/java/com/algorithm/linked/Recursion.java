@@ -8,7 +8,7 @@ package com.algorithm.linked;
 public class Recursion {
 
     /**
-     * Description:翻转链表
+     * Description:翻转链表（递归）
      **/
     class Solution206 {
         public DoublePointer.ListNode reverseList(DoublePointer.ListNode head) {

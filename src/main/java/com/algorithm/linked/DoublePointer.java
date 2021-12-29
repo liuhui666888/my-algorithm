@@ -158,7 +158,7 @@ public class DoublePointer {
     }
 
     /**
-     * Description:翻转链表
+     * Description:翻转链表（双指针）
      **/
     class Solution206 {
         public ListNode reverseList(ListNode head) {
