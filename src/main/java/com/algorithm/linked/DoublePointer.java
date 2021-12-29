@@ -216,4 +216,51 @@ public class DoublePointer {
         }
     }
 
+    /**
+     * Description:是否回文链表（两边对称）
+     * 思路：快慢指针，走到中间位置
+     * 将后面的链表翻转
+     * 对比前半部分和翻转后的后半部分
+     **/
+    class Solution234 {
+        public boolean isPalindrome(ListNode head) {
+            //快慢指针，走到中间位置
+            ListNode p1 = head,p2 = head;
+            while(p1 != null && p1.next != null){
+                p1 = p1.next.next;
+                p2 = p2.next;
+            }
+            //不为空则证明为奇数，再往前进一步
+            if(p1 != null){
+                p2 = p2.next;
+            }
+            //一个指针指向head，一个指针从中间指向翻转后的剩余链表
+            ListNode left = head;
+            ListNode reight = reverse(p2);
+            //相等则为回文链表
+            while(left != null && reight != null){
+                if(left.val != reight.val){
+                    return false;
+                }
+                left = left.next;
+                reight = reight.next;
+            }
+            return true;
+        }
+
+        /**
+         * 翻转链表
+         **/
+        public ListNode reverse(ListNode head) {
+            ListNode pre = head,cur = null;
+            while(pre != null){
+                ListNode dummy = pre.next;
+                pre.next = cur;
+                cur = pre;
+                pre = dummy;
+            }
+            return cur;
+        }
+    }
+
 }
