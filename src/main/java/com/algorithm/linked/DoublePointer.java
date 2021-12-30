@@ -182,7 +182,7 @@ public class DoublePointer {
     /**
      * Description:是否回文字符串（两边对称）
      **/
-    class Solution{
+    class Solution125{
         public boolean isPalindrome(String s) {
             //为空返回true
             if (s == null){
