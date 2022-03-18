@@ -2,6 +2,9 @@ package com.algorithm.tree;
 
 import com.algorithm.linked.ListNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @description: 遍历二叉树
  * 前中后序遍历解析
@@ -53,6 +56,41 @@ public class ErgodicTree {
         //后序位置
         //后序位置输出，代表时间上全执行完输出，也就是说为倒序输出
         System.out.println(node.val);
+    }
+
+    /**
+     * Description: 层序遍历
+     *            //将节点放入队列循环遍历
+     * @param root
+     * @return: void
+     * @Author: liuhui
+     * @Date: 2022/3/19
+     **/
+    public void levelTraverse(TreeNode root) {
+        if (root == null){
+            return;
+        }
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        //将父节点放入队列
+        q.offer(root);
+
+        // 从上到下遍历二叉树的每一层
+        while (!q.isEmpty()) {
+            int sz = q.size();
+            // 从左到右遍历每一层的每个节点
+            for (int i = 0; i < sz; i++) {
+                TreeNode cur = q.poll();
+                // 将下一层节点放入队列
+                if (cur.left != null) {
+                    q.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    q.offer(cur.right);
+                }
+                //遍历
+                System.out.println(cur);
+            }
+        }
     }
 
 }
