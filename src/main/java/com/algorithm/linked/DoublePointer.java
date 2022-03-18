@@ -7,13 +7,6 @@ package com.algorithm.linked;
  **/
 public class DoublePointer {
 
-    public static class ListNode {
-          int val;
-          ListNode next;
-          ListNode() {}
-          ListNode(int val) { this.val = val; }
-          ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
 
     /**
      * Description:合并两个有序链表
