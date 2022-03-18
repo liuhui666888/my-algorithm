@@ -11,14 +11,14 @@ public class Recursion {
      * Description:翻转链表（递归）
      **/
     class Solution206 {
-        public DoublePointer.ListNode reverseList(DoublePointer.ListNode head) {
+        public ListNode reverseList(ListNode head) {
             //如果head为空或者head.next为空则返回head
             if(head == null || head.next == null){
                 return head;
             }
             //返回后 pre = head.next
             //      head.next.next = pre.next
-            DoublePointer.ListNode pre = reverseList(head.next);
+            ListNode pre = reverseList(head.next);
             //这一步为翻转
             //即 让 pre 指向 head
             //也就是指向前一个
