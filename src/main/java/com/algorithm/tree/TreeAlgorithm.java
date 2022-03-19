@@ -55,5 +55,28 @@ public class TreeAlgorithm {
         }
     }
 
+    /**
+     * Description:翻转二叉树
+     *              前序遍历和后序遍历都可以，区别是一个从父节点开始交换，一个从子节点开始交换
+     * @Author: liuhui
+     * @Date: 2022/3/19
+     **/
+    class Solution226 {
+        TreeNode node;
+        public TreeNode invertTree(TreeNode root) {
+            if(root == null){
+                return root;
+            }
+            TreeNode left = invertTree(root.left);
+            TreeNode right = invertTree(root.right);
+            //交换左节点跟右节点位置
+            node = root.left;
+            root.left = root.right;
+            root.right = node;
+            //返回根节点
+            return root;
+        }
+    }
+
 
 }
