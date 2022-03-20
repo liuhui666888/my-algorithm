@@ -78,5 +78,68 @@ public class TreeAlgorithm {
         }
     }
 
+    /**
+     * Description: 二叉树展开为链表
+     * @Author: liuhui
+     * @Date: 2022/3/20
+     **/
+    class Solution114 {
+        public void flatten(TreeNode root) {
+
+            if (root == null){
+                return;
+            }
+            flatten(root.left);
+            flatten(root.right);
+            TreeNode left = root.left;
+            TreeNode right = root.right;
+
+            // 2、将左子树作为右子树
+            root.left = null;
+            root.right = left;
+
+            //创建临时变量指向root节点
+            TreeNode p = root;
+            //此时当前的右子树为左子树移过来的
+            //将原先的右子树接到当前右子树的末端
+            //因为原先的左子树节点可能是多个，所以要循环到末端再指向
+            while (p.right != null) {
+                p = p.right;
+            }
+            p.right = right;
+        }
+    }
+
+    /**
+     * Description: 填充每个节点的下一个右侧节点指针
+     * @Author: liuhui
+     * @Date: 2022/3/20
+     **/
+    class Solution116 {
+        //函数
+        public Node connect(Node root) {
+            if(root == null){
+                return root;
+            }
+            connect2(root.left,root.right);
+            return root;
+        }
+
+        //辅助函数
+        public void connect2(Node leftNode,Node rightNode){
+            if(leftNode == null || rightNode == null){
+                return;
+            }
+            //将左节点的next指向右节点
+            leftNode.next = rightNode;
+            //左子树指向
+            connect2(leftNode.left,leftNode.right);
+            //右子树指向
+            connect2(rightNode.left,rightNode.right);
+            //将左子树的右节点指向右子树的左节点
+            connect2(leftNode.right,rightNode.left);
+        }
+    }
+
 
 }
