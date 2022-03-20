@@ -142,4 +142,41 @@ public class TreeAlgorithm {
     }
 
 
+    /**
+     * Description: 最大二叉树
+     * @Author: liuhui
+     * @Date: 2022/3/20
+     **/
+    class Solution654 {
+        public TreeNode constructMaximumBinaryTree(int[] nums) {
+            //传入数组，及最小下标，最大下标
+            return build(nums,0,nums.length-1);
+        }
+
+        //辅助函数
+        TreeNode build(int[] nums,int lo,int hi){
+            //最小下标大于最大下标则返回。不能写等于，因为会导致只有一个参数时无法处理
+            if(lo > hi){
+                return null;
+            }
+            int index = 0;
+            //此处value要写-1，避免有值为0的情况，比较结果错误
+            int value = -1;
+            //循环找出最大值及下标
+            for(int i = lo;i <= hi; i++){
+                if(nums[i] > value){
+                    value = nums[i];
+                    index = i;
+                }
+            }
+            //将最大值看做root节点
+            TreeNode root = new TreeNode(value);
+            //将返回的值指向左右子节点
+            root.left = build(nums,lo,index-1);
+            root.right = build(nums,index+1,hi);
+            return root;
+        }
+    }
+
+
 }
