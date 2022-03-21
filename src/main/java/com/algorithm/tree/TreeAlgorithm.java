@@ -220,4 +220,41 @@ public class TreeAlgorithm {
     }
 
 
+    /**
+     * Description: 从中序与后序遍历序列构造二叉树
+     * @Author: liuhui
+     * @Date: 2022/3/21
+     **/
+    class Solution106 {
+        public TreeNode buildTree(int[] inorder, int[] postorder) {
+            return build(inorder,0,inorder.length-1,
+                    postorder,0,postorder.length-1);
+        }
+
+        public TreeNode build(int[] inorder,int inStar,int inEnd,
+                              int[] postorder,int poStar,int poEnd){
+            if(inStar > inEnd || poStar > poEnd){
+                return null;
+            }
+            int root = postorder[poEnd];
+            TreeNode rootNode = new TreeNode(root);
+            int index = 0;
+            //此处注意，是大于等于，不然最后一个算不到
+            for(int i = 0; i <= inEnd; i++){
+                if(inorder[i] == root){
+                    index = i;
+                    break;
+                }
+            }
+            int leftSize = index - inStar;
+            rootNode.left = build(inorder,inStar,index-1,
+                    postorder,poStar,leftSize+poStar-1);
+            //此处注意，因为每次postar都会移动，所以要算上移动的下标
+            rootNode.right = build(inorder,index+1,inEnd,
+                    postorder,leftSize+poStar,poEnd-1);
+            return rootNode;
+        }
+    }
+
+
 }
