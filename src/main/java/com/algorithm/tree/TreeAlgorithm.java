@@ -178,5 +178,46 @@ public class TreeAlgorithm {
         }
     }
 
+    /**
+     * Description: 从前序与中序遍历序列构造二叉树
+     * @Author: liuhui
+     * @Date: 2022/3/21
+     **/
+    class Solution105 {
+        //传入一个前序数组与一个中序数组
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            //传入前序数组及其最小下标最大下标，中序数组最小下标最大下标
+            return build(preorder,0,preorder.length-1,
+                    inorder,0,preorder.length-1);
+        }
+
+        public TreeNode build(int[] preorder,int preStar,int preEnd,
+                              int[] inorder,int inStar,int inEnd){
+            if(preStar > preEnd || inStar > inEnd){
+                return null;
+            }
+            //前序的第一个节点为根节点
+            int root = preorder[preStar];
+            int index=0;
+            //循环找到根节点在中序数组中的下标位置
+            for(int i = 0; i <= inEnd; i++){
+                if(inorder[i] == root){
+                    index = i;
+                }
+            }
+            //创建根节点
+            TreeNode rootNode = new TreeNode(root);
+            //从中序数组中找出左子树的size
+            int leftSize = index - inStar;
+            //前序数组的左节点的位置，和中序的左节点的位置集为左子树
+            rootNode.left = build(preorder,preStar+1,preStar+leftSize,
+                    inorder,inStar,index-1);
+            //前序数组的右节点的位置，和中序的右节点的位置集为右子树
+            rootNode.right = build(preorder,preStar + leftSize+1,preEnd,
+                    inorder,index+1,inEnd);
+            return rootNode;
+        }
+    }
+
 
 }
