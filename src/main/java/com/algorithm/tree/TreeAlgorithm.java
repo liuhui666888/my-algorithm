@@ -257,4 +257,46 @@ public class TreeAlgorithm {
     }
 
 
+    /**
+     * Description: 根据前序和后序遍历构造二叉树
+     *          思路：前序遍历的第二个节点也就是左子树的根节点
+     *                 对应后序遍历的左子树的最后一个节点
+     *                 也就能找到左子树的size了
+     * @Author: liuhui
+     * @Date: 2022/3/26
+     **/
+    class Solution889 {
+        public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+            return handel(preorder,0,preorder.length - 1,
+                    postorder,0,postorder.length -1 );
+        }
+
+        public TreeNode handel(int[] preorder,int preStar,int preEnd,
+                               int[] postorder,int poStar,int poEnd){
+            if(preStar > preEnd){
+                return null;
+            }
+            if(preStar == preEnd){
+                return new TreeNode(preorder[preStar]);
+            }
+            int root = preorder[preStar];
+            int leftRoot = preorder[preStar + 1];
+            int index = 0;
+            for(int i = poStar ; i < poEnd;i++){
+                if(leftRoot == postorder[i]){
+                    index = i;
+                    break;
+                }
+            }
+            int leftSize = index - poStar +1;
+            TreeNode rootNode = new TreeNode(root);
+            rootNode.left = handel(preorder,preStar+1,preStar+leftSize,
+                    postorder,poStar,index);
+            rootNode.right = handel(preorder,leftSize+preStar+1,preEnd,
+                    postorder,index+1,poEnd-1);
+            return rootNode;
+        }
+    }
+
+
 }
