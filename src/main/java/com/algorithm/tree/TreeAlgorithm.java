@@ -1,5 +1,7 @@
 package com.algorithm.tree;
 
+import java.util.LinkedList;
+
 /**
  * @description: 树算法题解
  * @author: liuhui
@@ -276,6 +278,7 @@ public class TreeAlgorithm {
             if(preStar > preEnd){
                 return null;
             }
+
             if(preStar == preEnd){
                 return new TreeNode(preorder[preStar]);
             }
@@ -296,6 +299,58 @@ public class TreeAlgorithm {
                     postorder,index+1,poEnd-1);
             return rootNode;
         }
+    }
+
+
+    /**
+     * Description: 二叉树的序列化与反序列化
+     * @Author: liuhui
+     * @Date: 2022/3/28
+     **/
+    public class Solution297 {
+
+        String flag = "#";
+
+        // 序列化为一个string
+        public String serialize(TreeNode root) {
+            StringBuilder strBuilder = new StringBuilder();
+            serializeHandel(root,strBuilder);
+            return strBuilder.toString();
+        }
+
+        // 反序列化为一棵树
+        public TreeNode deserialize(String data) {
+            LinkedList<String> link = new LinkedList();
+            String[] strArr =  data.split(",");
+            for(String str : strArr){
+                link.addLast(str);
+            }
+            return deserializeHandel(link);
+        }
+
+        //序列化处理器
+        void serializeHandel(TreeNode root,StringBuilder strBuilder){
+            if(root == null){
+                strBuilder.append(flag).append(",");
+                return;
+            }
+            strBuilder.append(root.value).append(",");
+            serializeHandel(root.left,strBuilder);
+            serializeHandel(root.right,strBuilder);
+        }
+
+        //反序列化处理器
+        TreeNode deserializeHandel(LinkedList<String> link){
+            String first = link.removeFirst();
+            if(first.equals(flag)){
+                return null;
+            }
+            TreeNode root = new TreeNode(Integer.parseInt(first));
+            root.left = deserializeHandel(link);
+            root.right = deserializeHandel(link);
+            return root;
+        }
+
     }
 
 
