@@ -330,10 +330,12 @@ public class TreeAlgorithm {
 
         //序列化处理器
         void serializeHandel(TreeNode root,StringBuilder strBuilder){
+            //如果为空，打个标识记录
             if(root == null){
                 strBuilder.append(flag).append(",");
                 return;
             }
+            //不为空将参数追加进去
             strBuilder.append(root.value).append(",");
             serializeHandel(root.left,strBuilder);
             serializeHandel(root.right,strBuilder);
@@ -341,7 +343,9 @@ public class TreeAlgorithm {
 
         //反序列化处理器
         TreeNode deserializeHandel(LinkedList<String> link){
+            //反序列化用LinkedList处理
             String first = link.removeFirst();
+            //为打标记得则为空
             if(first.equals(flag)){
                 return null;
             }
