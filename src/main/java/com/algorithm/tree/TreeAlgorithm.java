@@ -1,6 +1,9 @@
 package com.algorithm.tree;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @description: 树算法题解
@@ -355,6 +358,48 @@ public class TreeAlgorithm {
             return root;
         }
 
+    }
+
+
+    /**
+     * Description: 寻找重复的子树
+     * @Author: liuhui
+     * @Date: 2022/3/29
+     **/
+    class Solution652 {
+
+        String flag = "#";
+        HashMap<String,Integer> map = new HashMap();
+        List<TreeNode> list = new ArrayList<TreeNode>();
+
+        public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+            handle(root);
+            return list;
+        }
+
+        String handle(TreeNode root){
+            //为空的话加个标识
+            if(root == null){
+                return flag;
+            }
+            //分别返回左子树和右子树的序列化
+            String left = handle(root.left);
+            String right = handle(root.right);
+            String str = root.value+","+left+","+right;
+            Integer mapValue =  map.get(str);
+            //value为空代表暂时无重复的子树，则加入当前子树的序列化
+            if(mapValue == null){
+                map.put(str,1);
+                return str;
+            }
+            //这里判断1，为了避免重复加入
+            if(mapValue == 1){
+                map.put(str,mapValue+1);
+                //有重复子树，则在集合里添加这个子树
+                list.add(root);
+            }
+            return str;
+        }
     }
 
 
