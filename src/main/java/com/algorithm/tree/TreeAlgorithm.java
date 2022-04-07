@@ -403,4 +403,67 @@ public class TreeAlgorithm {
     }
 
 
+    /**
+     * Description: 归并排序
+     * @Author: liuhui
+     * @Date: 2022/4/7
+     **/
+    class Solution912 {
+        int[] temp;
+        public int[] sortArray(int[] nums) {
+            //创建一个辅助数组
+            temp = new int[nums.length];
+            sort(nums,0,nums.length-1);
+            return nums;
+        }
+
+        void sort(int[] nums,int star,int end){
+            if(star == end){
+                return;
+            }
+            // 考虑左右树，则下标end-下标star为左半边或右半边的真实长度
+            // 用真实长度/2,则为真实长度的一半，再加上stat起始下标，则为左子树或右子树的中点
+            int index = star + (end - star) / 2;
+            //左半边为index，右半边起始为index+1，不可颠倒
+            sort(nums,star,index);
+            sort(nums,index+1,end);
+            //拆分后合并
+            merge(nums,star,index,end);
+        }
+
+        void merge(int[] nums, int star, int index, int end) {
+            // 先把 nums[lo..hi] 复制到辅助数组中
+            // 以便合并后的结果能够直接存入 nums
+            for (int i = star; i <= end; i++) {
+                temp[i] = nums[i];
+            }
+
+            // 数组双指针技巧，合并两个有序数组
+            int a = star, j = index + 1;
+            for (int i = star; i <= end; i++) {
+                // 左半边数组已全部被合并，则将右边数组的值进行赋值
+                if (a == index + 1) {
+                    nums[i] = temp[j];
+                    j++;
+                }
+                // 右半边数组已全部被合并，则将左边数组的值进行赋值
+                else if (j == end + 1) {
+                    nums[i] = temp[a];
+                    a++;
+                }
+                // 左边数组的值大于右边数组的值，则将右边数组的值进行赋值
+                else if (temp[a] > temp[j]) {
+                    nums[i] = temp[j];
+                    j++;
+                }
+                // 左边值大，则直接将左边边数组的值进行赋值
+                else {
+                    nums[i] = temp[a];
+                    a++;
+                }
+            }
+        }
+    }
+
+
 }
